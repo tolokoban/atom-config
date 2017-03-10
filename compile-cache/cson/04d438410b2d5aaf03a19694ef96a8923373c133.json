@@ -1,0 +1,1 @@
+{".source.js":{"Trace var in console":{"prefix":"tr","body":"console.info(\"$1=\", $1)"}}}
