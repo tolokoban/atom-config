@@ -3,6 +3,10 @@
     homepage: "http://devdocs.io/"
   core:
     telemetryConsent: "no"
+    themes: [
+      "one-light-ui"
+      "one-light-syntax"
+    ]
   editor:
     scrollPastEnd: true
   "exception-reporting":
