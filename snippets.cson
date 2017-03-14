@@ -20,6 +20,10 @@
 # Atom Flight Manual:
 # http://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson
 
+".source.html":
+  "<x-widget>...":
+    prefix: "wdg"
+    body: """<x-widget name="$1">$0</$1>}"""
 ".source.js":
   "Trace var in console":
     prefix: "tr"
@@ -83,15 +87,15 @@ var $ = require("dom");
 var DB = require("tfw.data-binding");
 
 /**
- * @class `(mapconcat 'identity (mapcar 'capitalize (split-string (car (last (split-string (file-name-sans-extension (buffer-name)) "\\\\."))) "-")) "")`
+ * @class $1
  *
  * @param {boolean} opts.visible - Set the visiblity of the component.
  *
  * @example
- * var `(mapconcat 'identity (mapcar 'capitalize (split-string (car (last (split-string (file-name-sans-extension (buffer-name)) "\\\\."))) "-")) "")` = require("`(file-name-sans-extension (buffer-name))`");
- * var instance = new `(mapconcat 'identity (mapcar 'capitalize (split-string (car (last (split-string (file-name-sans-extension (buffer-name)) "\\\\."))) "-")) "")`({visible: false});
+ * var $1 = require("$1");
+ * var instance = new $1({ visible: false });
  */
-var `(mapconcat 'identity (mapcar 'capitalize (split-string (car (last (split-string (file-name-sans-extension (buffer-name)) "\\\\."))) "-")) "")` = function(opts) {
+var $1 = function(opts) {
     var elem = $.elem( this, 'div' );
     $0
     DB.propRemoveClass( this, 'visible', 'hide' );
@@ -102,7 +106,7 @@ var `(mapconcat 'identity (mapcar 'capitalize (split-string (car (last (split-st
 };
 
 
-module.exports = `(mapconcat 'identity (mapcar 'capitalize (split-string (car (last (split-string (file-name-sans-extension (buffer-name)) "\\\\."))) "-")) "")`;"""
+module.exports = $1;"""
   "fora -> for (i=0 ; i<arguments.length ; ...":
     prefix: "fora"
     body: """Array.slice.call(arguments).forEach(function(arg, idx) {
@@ -148,19 +152,10 @@ ${3:val} = $2[$1];$0
 }"""
   "defineProperty read only":
     prefix: "get"
-    body: """Object.defineProperty( this, '${1:element}', {
+    body: """${3:Object}.defineProperty( this, '${1:element}', {
 value: ${2:$.div()},
 writable: false, configurable: false, enumerable: true
 });$0"""
-  "function( ... ) {}":
-    prefix: "fun"
-    body: """<<<<<<< HEAD:yas/snippets/text-mode/js2-mode/fun.yasnippet
-function $1($2) {
-=======
-function$1($2) {
->>>>>>> a8e4324edb7fc2a2bfc13729a0b80162f8f8c197:yas/snippets/js2-mode/fun.yasnippet
-    $0
-}"""
   "defineProperty":
     prefix: "getset"
     body: """${2:Object}.defineProperty( `(mapconcat 'identity (mapcar 'capitalize (split-string (car (last (split-string (file-name-sans-extension (buffer-name)) "\\\\."))) "-")) "")`.prototype, '${1:value}', {
@@ -234,6 +229,25 @@ $1.prototype.$2 = function($3) {
 	    return this;
 	}$0
 """
+  "var Button = require('wdg.button')":
+    prefix: "reqbtn"
+    body: "var Button = require('wdg.button');$0"
+  "return new Promise(...)":
+    prefix: "retpro"
+    body: """return new Promise(function (resolve, reject) {
+    $0
+});"""
+  "var Modal = require('wdg.modal')":
+    prefix: "reqmod"
+    body: "var Modal = require('wdg.modal');$0"
+  "return new Promise(...)":
+    prefix: "retpro"
+    body: """return new Promise(function (resolve, reject) {
+    $0
+});"""
+  "var Text = require('wdg.text')":
+    prefix: "reqtxt"
+    body: "var Text = require('wdg.text');$0"
   "return new Promise(...)":
     prefix: "retpro"
     body: """return new Promise(function (resolve, reject) {
