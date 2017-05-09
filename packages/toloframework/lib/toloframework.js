@@ -44,6 +44,9 @@ export default {
       this.modalPanel.hide() :
       this.modalPanel.show()
     );
-  }
+  },
 
+  switchToCss() {
+    
+  }
 };

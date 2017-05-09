@@ -12,11 +12,20 @@
       "label": "Packages",
       "submenu": [
         {
-          "label": "toloframework",
+          "label": "Toloframework",
           "submenu": [
             {
               "label": "Toggle",
               "command": "toloframework:toggle"
+            },
+            {
+              "label": "Switch to...",
+              "submenu": [
+                {
+                  "label": "CSS",
+                  "command": "toloframework:switchToCss"
+                }
+              ]
             }
           ]
         }
