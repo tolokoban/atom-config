@@ -40,6 +40,9 @@
  * var mod = require('`(file-name-sans-extension (buffer-name))`');
  */
 $0"""
+  'var that = this;':
+    'prefix': 'that'
+    'body': 'var that = this;'
   "arr -> Array.isArray($0)":
     prefix: "arr"
     body: """Array.isArray($0)"""

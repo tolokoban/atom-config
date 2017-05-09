@@ -2,6 +2,7 @@
   "browser-plus":
     homepage: "http://devdocs.io/"
   core:
+    projectHome: "E:\\Code\\github\\atom-config\\packages"
     telemetryConsent: "no"
     themes: [
       "one-light-ui"
