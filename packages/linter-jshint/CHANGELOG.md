@@ -1,12 +1,55 @@
 # Change Log
 
+## [v3.1.2](https://github.com/AtomLinter/linter-jshint/tree/v3.1.2) (2017-05-10)
+[Full Changelog](https://github.com/AtomLinter/linter-jshint/compare/v3.1.1...v3.1.2)
+
+**Implemented enhancements:**
+
+- Update flow-bin to version v0.46.0 🚀 [\#397](https://github.com/AtomLinter/linter-jshint/pull/397) ([greenkeeper[bot]](https://github.com/integration/greenkeeper))
+
+**Fixed bugs:**
+
+- "Disable when no jshintrc..." option still broken [\#396](https://github.com/AtomLinter/linter-jshint/issues/396)
+- Fix logic when there is a config file [\#398](https://github.com/AtomLinter/linter-jshint/pull/398) ([Arcanemagus](https://github.com/Arcanemagus))
+
+## [v3.1.1](https://github.com/AtomLinter/linter-jshint/tree/v3.1.1) (2017-05-08)
+[Full Changelog](https://github.com/AtomLinter/linter-jshint/compare/v3.1.0...v3.1.1)
+
+**Fixed bugs:**
+
+- Disable when no .jshintrc option broken [\#391](https://github.com/AtomLinter/linter-jshint/issues/391)
+- Wait on home config check response [\#392](https://github.com/AtomLinter/linter-jshint/pull/392) ([Arcanemagus](https://github.com/Arcanemagus))
+
+## [v3.1.0](https://github.com/AtomLinter/linter-jshint/tree/v3.1.0) (2017-05-08)
+[Full Changelog](https://github.com/AtomLinter/linter-jshint/compare/v3.0.3...v3.1.0)
+
+**Implemented enhancements:**
+
+- Option to force lint by file extension or scope [\#372](https://github.com/AtomLinter/linter-jshint/issues/372)
+- Can't configure to use .jshintignore file [\#302](https://github.com/AtomLinter/linter-jshint/issues/302)
+- Improve startup time [\#388](https://github.com/AtomLinter/linter-jshint/pull/388) ([Arcanemagus](https://github.com/Arcanemagus))
+- Update to the Linter v2 API [\#387](https://github.com/AtomLinter/linter-jshint/pull/387) ([Arcanemagus](https://github.com/Arcanemagus))
+- Remove workarounds and handle errors better [\#386](https://github.com/AtomLinter/linter-jshint/pull/386) ([Arcanemagus](https://github.com/Arcanemagus))
+- Set CWD and fix ignore handling [\#385](https://github.com/AtomLinter/linter-jshint/pull/385) ([Arcanemagus](https://github.com/Arcanemagus))
+- Async-ify the specs [\#384](https://github.com/AtomLinter/linter-jshint/pull/384) ([Arcanemagus](https://github.com/Arcanemagus))
+- Update atom-linter to v10.0.0 🚀 [\#378](https://github.com/AtomLinter/linter-jshint/pull/378) ([greenkeeper[bot]](https://github.com/integration/greenkeeper))
+- Added option to configure scopes to lint [\#374](https://github.com/AtomLinter/linter-jshint/pull/374) ([augusto-moura](https://github.com/augusto-moura))
+
+**Fixed bugs:**
+
+- Default .jshintrc [\#339](https://github.com/AtomLinter/linter-jshint/issues/339)
+- Linter silently fails with config issue [\#212](https://github.com/AtomLinter/linter-jshint/issues/212)
+- Remove check on ID [\#390](https://github.com/AtomLinter/linter-jshint/pull/390) ([Arcanemagus](https://github.com/Arcanemagus))
+- Allow JSHint to handle configuration where possible [\#389](https://github.com/AtomLinter/linter-jshint/pull/389) ([Arcanemagus](https://github.com/Arcanemagus))
+- Fix Flow usage [\#382](https://github.com/AtomLinter/linter-jshint/pull/382) ([Arcanemagus](https://github.com/Arcanemagus))
+
 ## [v3.0.3](https://github.com/AtomLinter/linter-jshint/tree/v3.0.3) (2017-03-02)
 [Full Changelog](https://github.com/AtomLinter/linter-jshint/compare/v3.0.2...v3.0.3)
 
 **Implemented enhancements:**
 
 - Remove macOS testing [\#370](https://github.com/AtomLinter/linter-jshint/pull/370) ([Arcanemagus](https://github.com/Arcanemagus))
-- Update atom-linter to the latest version 🚀 [\#368](https://github.com/AtomLinter/linter-jshint/pull/368) ([greenkeeper[bot]](https://github.com/integration/greenkeeper))
+- Update atom-linter to v9.0.0 🚀 [\#368](https://github.com/AtomLinter/linter-jshint/pull/368) ([greenkeeper[bot]](https://github.com/integration/greenkeeper))
 
 ## [v3.0.2](https://github.com/AtomLinter/linter-jshint/tree/v3.0.2) (2016-12-13)
 [Full Changelog](https://github.com/AtomLinter/linter-jshint/compare/v3.0.1...v3.0.2)

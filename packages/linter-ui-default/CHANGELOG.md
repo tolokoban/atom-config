@@ -1,3 +1,20 @@
+## 1.2.4
+
+* Fix for Nuclide's Tree View
+* Remove tooltip if it exists on config change
+* Remove tooltip when cursor changes (only when `tooltipFollows` is set to `Mouse`)
+
+## 1.2.3
+
+* Improve tooltip hiding logic
+* Fix two borders on the Bottom Table
+* Make description in Bottom Panel clickable
+* Use wavy underlines in tree view and editor
+* Use theme variable for Bottom Panel font size
+* Fix inconsistent border radius of Linter Status
+* Fix current line marker in gutter for soft wraps
+* Only show url icon on tooltip if specified by linter provider
+
 ## 1.2.2
 
 * Fix mouse tooltips for some users
