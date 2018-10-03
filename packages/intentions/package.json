@@ -1,44 +1,29 @@
 {
-  "_args": [
-    [
-      {
-        "raw": "/tmp/d-117220-6042-1hbmfeu/package.tgz",
-        "scope": null,
-        "escapedName": null,
-        "name": null,
-        "rawSpec": "/tmp/d-117220-6042-1hbmfeu/package.tgz",
-        "spec": "/tmp/d-117220-6042-1hbmfeu/package.tgz",
-        "type": "local"
-      },
-      "/tmp/apm-install-dir-117220-6042-5ruh3i"
-    ]
-  ],
-  "_from": "../d-117220-6042-1hbmfeu/package.tgz",
-  "_id": "intentions@1.1.2",
-  "_inCache": true,
-  "_installable": true,
+  "_from": "https://www.atom.io/api/packages/intentions/versions/1.1.5/tarball",
+  "_id": "intentions@1.1.5",
+  "_inBundle": false,
+  "_integrity": "sha512-572U1d0QpahVXL8jdR3vp+TYN1qrrvOf/hev5c1KlKNSRTNR6BxPMDOYRlv1/MV7Yg/5biUl4cI+xFgfElN0gg==",
   "_location": "/intentions",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-117220-6042-1hbmfeu/package.tgz",
-    "scope": null,
-    "escapedName": null,
-    "name": null,
-    "rawSpec": "/tmp/d-117220-6042-1hbmfeu/package.tgz",
-    "spec": "/tmp/d-117220-6042-1hbmfeu/package.tgz",
-    "type": "local"
+    "type": "remote",
+    "raw": "https://www.atom.io/api/packages/intentions/versions/1.1.5/tarball",
+    "rawSpec": "https://www.atom.io/api/packages/intentions/versions/1.1.5/tarball",
+    "saveSpec": "https://www.atom.io/api/packages/intentions/versions/1.1.5/tarball",
+    "fetchSpec": "https://www.atom.io/api/packages/intentions/versions/1.1.5/tarball"
   },
   "_requiredBy": [
-    "#USER"
+    "#USER",
+    "/"
   ],
-  "_resolved": "file:../d-117220-6042-1hbmfeu/package.tgz",
-  "_shasum": "ff78e073a6bf1069e184a4cc79e8306af30a1962",
-  "_shrinkwrap": null,
-  "_spec": "/tmp/d-117220-6042-1hbmfeu/package.tgz",
-  "_where": "/tmp/apm-install-dir-117220-6042-5ruh3i",
+  "_resolved": "https://www.atom.io/api/packages/intentions/versions/1.1.5/tarball",
+  "_shasum": "c8414cacc55c400cc2172716ec3178ccea02abb4",
+  "_spec": "https://www.atom.io/api/packages/intentions/versions/1.1.5/tarball",
+  "_where": "/tmp/apm-install-dir-118829-16287-15q1mv1.ms5g",
   "bugs": {
     "url": "https://github.com/steelbrain/intentions/issues"
   },
+  "bundleDependencies": false,
   "consumedServices": {
     "intentions:list": {
       "versions": {
@@ -53,12 +38,14 @@
   },
   "dependencies": {
     "disposable-event": "^1.0.1",
-    "sb-event-kit": "^2.0.0",
+    "sb-event-kit": "^3.0.0",
     "vanilla-jsx": "^3.0.2"
   },
+  "deprecated": false,
   "description": "Base package for showing intentions in Atom",
   "devDependencies": {
-    "eslint-config-steelbrain": "^1.0.4",
+    "eslint-config-steelbrain": "^2.0.0",
+    "flow-bin": "^0.46.0",
     "jasmine-fix": "^1.0.1"
   },
   "engines": {
@@ -69,16 +56,12 @@
   "license": "MIT",
   "main": "./lib/index.js",
   "name": "intentions",
-  "optionalDependencies": {},
-  "readme": "Intentions\n=========\n\nIntentions is a base package that provides an easy-to-use API to show intentions based in Atom.\n\n#### Usage\n\nThe default keybinding on OSX to trigger list is `ctrl` + `enter`. If you want to trigger intentions highlights,\npress `alt`.\n\nThe default keybinding on Windows and Linux to trigger list is `alt` + `enter`. If you want to trigger intentions\nhighlights press `ctrl`.\n\n#### APIs\n\nIntentions provides two kinds of APIs, there's Intentions List API that allows you to add items\nto intentions list. Here is what it looks like,\n\n![Intentions List API](https://cloud.githubusercontent.com/assets/4278113/12488546/e73809ba-c08d-11e5-8038-dd222f3a815d.png)\n\nThe second type of API is highlight API. It allows packages to mark buffer ranges and do cool thing with them.\nIt can be jump-to-declaration click, show type on mouse move and show color as underline.\nHere is what it looks like\n\n![Intentions Highlight API](https://cloud.githubusercontent.com/assets/4278113/12878032/0f915ef2-ce3f-11e5-833e-be231abeda12.png)\n\nYou can find docs about both of these in [Intentions Wiki](https://github.com/steelbrain/intentions/wiki/Intentions-API)\n\n#### License\nThis package is licensed under the terms of MIT License, see the license file for more info.\n",
-  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/steelbrain/intentions.git"
   },
   "scripts": {
-    "lint": "eslint .",
-    "test": "apm test"
+    "test": "(apm test) && (flow check) && (eslint . )"
   },
-  "version": "1.1.2"
+  "version": "1.1.5"
 }

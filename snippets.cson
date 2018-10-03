@@ -278,8 +278,7 @@ catch (e) {
 """
   "if( toto === undefined ) toto = \"blabla\";":
     prefix: "undef"
-    body: """if( typeof $1 === 'undefined' ) $1 = $2;
-$0"""
+    body: 'if( typeof $1 === "undefined" ) $1 = $2;$0'
   "use":
     prefix: "use"
     body: """"use strict";

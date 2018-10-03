@@ -3,7 +3,15 @@
 import LinterUI from './main'
 import type Intentions from './intentions'
 
-const linterUiDefault = {
+const idleCallbacks: Set<any> = new Set()
+
+type LinterUIDefault = {
+  instances: Set<LinterUI>,
+  signalRegistry: Object | null,
+  statusBarRegistry: Object | null,
+}
+
+const linterUiDefault: LinterUIDefault = {
   instances: new Set(),
   signalRegistry: null,
   statusBarRegistry: null,
@@ -13,12 +21,18 @@ const linterUiDefault = {
       atom.packages.getLoadedPackage('linter-ui-default').metadata['package-deps'].push('busy-signal')
     }
 
-    if (!atom.inSpecMode()) {
-      // eslint-disable-next-line global-require
-      require('atom-package-deps').install('linter-ui-default', true)
-    }
+    const callbackID = window.requestIdleCallback(function installLinterUIDefaultDeps() {
+      idleCallbacks.delete(callbackID)
+      if (!atom.inSpecMode()) {
+        // eslint-disable-next-line global-require
+        require('atom-package-deps').install('linter-ui-default')
+      }
+    })
+    idleCallbacks.add(callbackID)
   },
   deactivate() {
+    idleCallbacks.forEach(callbackID => window.cancelIdleCallback(callbackID))
+    idleCallbacks.clear()
     for (const entry of this.instances) {
       entry.dispose()
     }

@@ -56,6 +56,11 @@
     indent_size: 4
   markdown:
     listItemIndent: 1
+    strong: '_'
+    emphasis: '_'
+    fences: true
+    fence: '`'
+    setext: true
   jade:
     indent_size: 4
     indent_char: " "
@@ -64,3 +69,5 @@
     space_before_conditional: false
     space_after_anon_function: false
     jslint_happy: false
+  yaml:
+    padding: 5

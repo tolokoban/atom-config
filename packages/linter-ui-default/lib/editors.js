@@ -1,29 +1,37 @@
 /* @flow */
 
-import { CompositeDisposable, Emitter } from 'sb-event-kit'
+import { CompositeDisposable } from 'atom'
 import type { TextEditor } from 'atom'
 import Editor from './editor'
 import { $file, getEditorsMap, filterMessages } from './helpers'
 import type { LinterMessage, MessagesPatch } from './types'
 
-export default class Editors {
-  emitter: Emitter;
-  editors: Set<Editor>;
-  messages: Array<LinterMessage>;
-  firstRender: bool;
-  subscriptions: CompositeDisposable;
+class Editors {
+  editors: Set<Editor>
+  messages: Array<LinterMessage>
+  firstRender: boolean
+  subscriptions: CompositeDisposable
 
   constructor() {
-    this.emitter = new Emitter()
     this.editors = new Set()
     this.messages = []
     this.firstRender = true
     this.subscriptions = new CompositeDisposable()
 
-    this.subscriptions.add(this.emitter)
-    this.subscriptions.add(atom.workspace.observeTextEditors((textEditor) => {
-      this.getEditor(textEditor)
-    }))
+    this.subscriptions.add(
+      atom.workspace.observeTextEditors(textEditor => {
+        this.getEditor(textEditor)
+      }),
+    )
+    this.subscriptions.add(
+      atom.workspace.getCenter().observeActivePaneItem(paneItem => {
+        this.editors.forEach(editor => {
+          if (editor.textEditor !== paneItem) {
+            editor.removeTooltip()
+          }
+        })
+      }),
+    )
   }
   isFirstRender(): boolean {
     return this.firstRender
@@ -64,14 +72,18 @@ export default class Editors {
     editor.onDidDestroy(() => {
       this.editors.delete(editor)
     })
-    editor.subscriptions.add(textEditor.onDidChangePath(() => {
-      editor.dispose()
-      this.getEditor(textEditor)
-    }))
-    editor.subscriptions.add(textEditor.onDidChangeGrammar(() => {
-      editor.dispose()
-      this.getEditor(textEditor)
-    }))
+    editor.subscriptions.add(
+      textEditor.onDidChangePath(() => {
+        editor.dispose()
+        this.getEditor(textEditor)
+      }),
+    )
+    editor.subscriptions.add(
+      textEditor.onDidChangeGrammar(() => {
+        editor.dispose()
+        this.getEditor(textEditor)
+      }),
+    )
     editor.apply(filterMessages(this.messages, textEditor.getPath()), [])
     return editor
   }
@@ -82,3 +94,5 @@ export default class Editors {
     this.subscriptions.dispose()
   }
 }
+
+module.exports = Editors

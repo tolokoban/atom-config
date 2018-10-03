@@ -17,7 +17,6 @@ def example2(): return {'has_key() is deprecated': True}.has_key(
 
 
 class Example3(object):
-
   def __init__(self, bar):
     # Comments should have a space after the hash.
     if bar:

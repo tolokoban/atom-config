@@ -1,79 +1,74 @@
 {
-  "_args": [
-    [
-      {
-        "raw": "/tmp/d-11732-18673-1aykpiv/package.tgz",
-        "scope": null,
-        "escapedName": null,
-        "name": null,
-        "rawSpec": "/tmp/d-11732-18673-1aykpiv/package.tgz",
-        "spec": "/tmp/d-11732-18673-1aykpiv/package.tgz",
-        "type": "local"
-      },
-      "/tmp/apm-install-dir-11732-18673-4rdkoq"
-    ]
-  ],
-  "_from": "../d-11732-18673-1aykpiv/package.tgz",
-  "_id": "linter@2.1.2",
-  "_inCache": true,
-  "_installable": true,
+  "_from": "https://www.atom.io/api/packages/linter/versions/2.2.0/tarball",
+  "_id": "linter@2.2.0",
+  "_inBundle": false,
+  "_integrity": "sha512-MV11KoYbBl4R1aEPW0J04vGEtJNxWivwrDas3kLw4hzzpIvG9VAOIvHT8qdRVS9GVJ4yGLjycM+4wo2xGWcXGQ==",
   "_location": "/linter",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/tmp/d-11732-18673-1aykpiv/package.tgz",
-    "scope": null,
-    "escapedName": null,
-    "name": null,
-    "rawSpec": "/tmp/d-11732-18673-1aykpiv/package.tgz",
-    "spec": "/tmp/d-11732-18673-1aykpiv/package.tgz",
-    "type": "local"
+    "type": "remote",
+    "raw": "https://www.atom.io/api/packages/linter/versions/2.2.0/tarball",
+    "rawSpec": "https://www.atom.io/api/packages/linter/versions/2.2.0/tarball",
+    "saveSpec": "https://www.atom.io/api/packages/linter/versions/2.2.0/tarball",
+    "fetchSpec": "https://www.atom.io/api/packages/linter/versions/2.2.0/tarball"
   },
   "_requiredBy": [
-    "#USER"
+    "#USER",
+    "/"
   ],
-  "_resolved": "file:../d-11732-18673-1aykpiv/package.tgz",
-  "_shasum": "374be92b2034aee5b7fe40f35aeb3dacc5edf3d3",
-  "_shrinkwrap": null,
-  "_spec": "/tmp/d-11732-18673-1aykpiv/package.tgz",
-  "_where": "/tmp/apm-install-dir-11732-18673-4rdkoq",
+  "_resolved": "https://www.atom.io/api/packages/linter/versions/2.2.0/tarball",
+  "_shasum": "58c53b67851cb486e4d3d1d033438122fbf82104",
+  "_spec": "https://www.atom.io/api/packages/linter/versions/2.2.0/tarball",
+  "_where": "/tmp/apm-install-dir-118830-13135-7mbx7k.454ut",
   "author": {
     "name": "steelbrain"
   },
   "bugs": {
     "url": "https://github.com/steelbrain/linter/issues"
   },
+  "bundleDependencies": false,
   "configSchema": {
     "lintPreviewTabs": {
       "type": "boolean",
       "description": "Lint tabs while they are still in preview status",
       "default": true,
-      "order": 2
+      "order": 1
     },
     "lintOnOpen": {
       "title": "Lint on Open",
       "description": "Lint files automatically when they are opened",
       "type": "boolean",
       "default": true,
-      "order": 3
+      "order": 2
     },
     "lintOnChange": {
       "title": "Lint on Change",
       "description": "Lint files while typing, without the need to save (only for supported providers)",
       "type": "boolean",
       "default": true,
-      "order": 4
+      "order": 3
     },
     "lintOnChangeInterval": {
       "title": "Lint on Change Interval",
       "description": "Interval at which linting is done as you type (in ms)",
       "type": "integer",
       "default": 300,
-      "order": 5
+      "order": 4
     },
     "ignoreGlob": {
       "title": "Ignore files matching this Glob",
       "type": "string",
       "default": "**/*.min.{js,css}",
+      "order": 5
+    },
+    "disabledProviders": {
+      "title": "Disabled providers",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Names of disabled linter providers",
+      "default": [],
       "order": 6
     }
   },
@@ -92,18 +87,18 @@
   },
   "dependencies": {
     "atom-package-deps": "^4.4.1",
-    "atom-select-list": "0.0.16",
+    "atom-select-list": "0.2.0",
     "cool-trim": "^1.1.1",
-    "eslint-config-steelbrain": "^2.0.0",
     "lodash.uniq": "^4.5.0",
     "minimatch": "^3.0.3",
-    "sb-config-file": "^3.0.2",
-    "sb-debounce": "^1.0.1"
+    "sb-debounce": "^1.0.1",
+    "sb-fs": "^3.0.0"
   },
+  "deprecated": false,
   "description": "A Base Linter with Cow Powers",
   "devDependencies": {
-    "eslint-config-steelbrain": "^2.0.0",
-    "flow-bin": "^0.42.0",
+    "eslint-config-steelbrain": "^3.0.0",
+    "flow-bin": "^0.46.0",
     "jasmine-fix": "^1.0.0"
   },
   "engines": {
@@ -116,7 +111,6 @@
   "license": "MIT",
   "main": "./lib/index.js",
   "name": "linter",
-  "optionalDependencies": {},
   "package-deps": [
     "linter-ui-default"
   ],
@@ -129,7 +123,6 @@
       }
     }
   },
-  "readme": "./README.md",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/steelbrain/linter.git"
@@ -137,5 +130,5 @@
   "scripts": {
     "test": "(apm test) && (flow check) && (eslint . )"
   },
-  "version": "2.1.2"
+  "version": "2.2.0"
 }

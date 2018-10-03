@@ -3,9 +3,9 @@
 import { $range, applySolution, filterMessages } from './helpers'
 import type { LinterMessage } from './types'
 
-export default class Intentions {
-  messages: Array<LinterMessage>;
-  grammarScopes: Array<string>;
+class Intentions {
+  messages: Array<LinterMessage>
+  grammarScopes: Array<string>
 
   constructor() {
     this.messages = []
@@ -34,14 +34,16 @@ export default class Intentions {
       }
       const linterName = message.linterName || 'Linter'
 
-      intentions = intentions.concat(solutions.map(solution => ({
-        priority: solution.priority ? solution.priority + 200 : 200,
-        icon: 'tools',
-        title: solution.title || `Fix ${linterName} issue`,
-        selected() {
-          applySolution(textEditor, message.version, solution)
-        },
-      })))
+      intentions = intentions.concat(
+        solutions.map(solution => ({
+          priority: solution.priority ? solution.priority + 200 : 200,
+          icon: 'tools',
+          title: solution.title || `Fix ${linterName} issue`,
+          selected() {
+            applySolution(textEditor, message.version, solution)
+          },
+        })),
+      )
     }
     return intentions
   }
@@ -49,3 +51,5 @@ export default class Intentions {
     this.messages = messages
   }
 }
+
+module.exports = Intentions

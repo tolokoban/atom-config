@@ -14,6 +14,8 @@ var asciiIdentifierStartTable = unicodeData.asciiIdentifierStartTable;
 var asciiIdentifierPartTable = unicodeData.asciiIdentifierPartTable;
 var nonAsciiIdentifierStartTable = require("../data/non-ascii-identifier-start.js");
 var nonAsciiIdentifierPartTable = require("../data/non-ascii-identifier-part-only.js");
+// Loading of this module is deferred as an optimization for ES2015 input
+var es5IdentifierNames;
 
 // Some of these token types are from JavaScript Parser API
 // while others are specific to JSHint parser.
@@ -26,8 +28,6 @@ var Token = {
   StringLiteral: 4,
   Comment: 5,
   Keyword: 6,
-  NullLiteral: 7,
-  BooleanLiteral: 8,
   RegExp: 9,
   TemplateHead: 10,
   TemplateMiddle: 11,
@@ -39,6 +39,14 @@ var Context = {
   Block: 1,
   Template: 2
 };
+
+function isHex(str) {
+  return /^[0-9a-fA-F]+$/.test(str);
+}
+
+function isHexDigit(str) {
+  return str.length === 1 && isHex(str);
+}
 
 // Object that handles postponed lexing verifications that checks the parsed
 // environment state.
@@ -138,10 +146,6 @@ Lexer.prototype = {
 
   popContext: function() {
     return this.context.pop();
-  },
-
-  isContext: function(context) {
-    return this.context.length > 0 && this.context[this.context.length - 1] === context;
   },
 
   currentContext: function() {
@@ -431,6 +435,17 @@ Lexer.prototype = {
           body = body.substr(str.length + 1);
         }
 
+        // To handle rarer case when special word is separated from label by
+        // multiple spaces or tabs
+        var strIndex = body.indexOf(str);
+        if (!isSpecial && strIndex >= 0 && body.charAt(strIndex + str.length) === " ") {
+          var isAllWhitespace = body.substr(0, strIndex).trim().length === 0;
+          if (isAllWhitespace) {
+            isSpecial = true;
+            body = body.substr(str.length + strIndex);
+          }
+        }
+
         if (!isSpecial) {
           return;
         }
@@ -473,7 +488,6 @@ Lexer.prototype = {
         value: value,
         body: body,
         isSpecial: isSpecial,
-        isMultiline: opt.isMultiline || false,
         isMalformed: opt.isMalformed || false
       };
     }
@@ -553,7 +567,7 @@ Lexer.prototype = {
       "super", "return", "typeof", "delete",
       "switch", "export", "import", "default",
       "finally", "extends", "function", "continue",
-      "debugger", "instanceof"
+      "debugger", "instanceof", "true", "false", "null"
     ];
 
     if (result && keywords.indexOf(result[0]) >= 0) {
@@ -568,14 +582,12 @@ Lexer.prototype = {
 
   /*
    * Extract a JavaScript identifier out of the next sequence of
-   * characters or return 'null' if its not possible. In addition,
-   * to Identifier this method can also produce BooleanLiteral
-   * (true/false) and NullLiteral (null).
+   * characters or return 'null' if its not possible.
    */
-  scanIdentifier: function() {
+  scanIdentifier: function(checks) {
     var id = "";
     var index = 0;
-    var type, char;
+    var char, value;
 
     function isNonAsciiIdentifierStart(code) {
       return nonAsciiIdentifierStartTable.indexOf(code) > -1;
@@ -583,10 +595,6 @@ Lexer.prototype = {
 
     function isNonAsciiIdentifierPart(code) {
       return isNonAsciiIdentifierStart(code) || nonAsciiIdentifierPartTable.indexOf(code) > -1;
-    }
-
-    function isHexDigit(str) {
-      return (/^[0-9a-fA-F]$/).test(str);
     }
 
     var readUnicodeEscapeSequence = function() {
@@ -597,18 +605,16 @@ Lexer.prototype = {
         return null;
       }
 
-      var ch1 = this.peek(index + 1);
-      var ch2 = this.peek(index + 2);
-      var ch3 = this.peek(index + 3);
-      var ch4 = this.peek(index + 4);
+      var sequence = this.peek(index + 1) + this.peek(index + 2) +
+        this.peek(index + 3) + this.peek(index + 4);
       var code;
 
-      if (isHexDigit(ch1) && isHexDigit(ch2) && isHexDigit(ch3) && isHexDigit(ch4)) {
-        code = parseInt(ch1 + ch2 + ch3 + ch4, 16);
+      if (isHex(sequence)) {
+        code = parseInt(sequence, 16);
 
         if (asciiIdentifierPartTable[code] || isNonAsciiIdentifierPart(code)) {
           index += 5;
-          return "\\u" + ch1 + ch2 + ch3 + ch4;
+          return "\\u" + sequence;
         }
 
         return null;
@@ -691,21 +697,29 @@ Lexer.prototype = {
       id += char;
     }
 
-    switch (id) {
-    case "true":
-    case "false":
-      type = Token.BooleanLiteral;
-      break;
-    case "null":
-      type = Token.NullLiteral;
-      break;
-    default:
-      type = Token.Identifier;
+    value = removeEscapeSequences(id);
+
+    if (!state.inES6(true)) {
+      es5IdentifierNames = require("../data/es5-identifier-names.js");
+
+      if (!es5IdentifierNames.test(value)) {
+        this.triggerAsync(
+          "warning",
+          {
+            code: "W119",
+            line: this.line,
+            character: this.char,
+            data: ["unicode 8", "6"]
+          },
+          checks,
+          function() { return true; }
+        );
+      }
     }
 
     return {
-      type: type,
-      value: removeEscapeSequences(id),
+      type: Token.Identifier,
+      value: value,
       text: id,
       tokenLength: id.length
     };
@@ -725,7 +739,6 @@ Lexer.prototype = {
     var value = "";
     var length = this.input.length;
     var char = this.peek(index);
-    var bad;
     var isAllowedDigit = isDecimalDigit;
     var base = 10;
     var isLegacy = false;
@@ -740,10 +753,6 @@ Lexer.prototype = {
 
     function isBinaryDigit(str) {
       return (/^[01]$/).test(str);
-    }
-
-    function isHexDigit(str) {
-      return (/^[0-9a-fA-F]$/).test(str);
     }
 
     function isIdentifierStart(ch) {
@@ -823,7 +832,6 @@ Lexer.prototype = {
           isAllowedDigit = isOctalDigit;
           base = 8;
           isLegacy = true;
-          bad = false;
 
           index += 1;
           value += char;
@@ -841,11 +849,9 @@ Lexer.prototype = {
       while (index < length) {
         char = this.peek(index);
 
-        if (isLegacy && isDecimalDigit(char)) {
-          // Numbers like '019' (note the 9) are not valid octals
-          // but we still parse them and mark as malformed.
-          bad = true;
-        } else if (!isAllowedDigit(char)) {
+        // Numbers like '019' (note the 9) are not valid octals
+        // but we still parse them and mark as malformed.
+        if (!(isLegacy && isDecimalDigit(char)) && !isAllowedDigit(char)) {
           break;
         }
         value += char;
@@ -984,17 +990,32 @@ Lexer.prototype = {
       }, checks,
       function() { return n >= 0 && n <= 7 && state.isStrict(); });
       break;
+    case "1":
+    case "2":
+    case "3":
+    case "4":
+    case "5":
+    case "6":
+    case "7":
+      char = "\\" + char;
+      this.triggerAsync("warning", {
+        code: "W115",
+        line: this.line,
+        character: this.char
+      }, checks,
+      function() { return state.isStrict(); });
+      break;
     case "u":
-      var hexCode = this.input.substr(1, 4);
-      var code = parseInt(hexCode, 16);
-      if (isNaN(code)) {
+      var sequence = this.input.substr(1, 4);
+      var code = parseInt(sequence, 16);
+      if (!isHex(sequence)) {
         // This condition unequivocally describes a syntax error.
         // TODO: Re-factor as an "error" (not a "warning").
         this.trigger("warning", {
           code: "W052",
           line: this.line,
           character: this.char,
-          data: [ "u" + hexCode ]
+          data: [ "u" + sequence ]
         });
       }
       char = String.fromCharCode(code);
@@ -1190,7 +1211,7 @@ Lexer.prototype = {
 
         if (!allowNewLine) {
           // This condition unequivocally describes a syntax error.
-          // TODO: Re-factor as an "error" (not a "warning").
+          // TODO: Emit error E029 and remove W112.
           this.trigger("warning", {
             code: "W112",
             line: this.line,
@@ -1219,12 +1240,6 @@ Lexer.prototype = {
         // error and implicitly close it at the EOF point.
 
         if (!this.nextLine(checks)) {
-          this.trigger("error", {
-            code: "E029",
-            line: startLine,
-            character: startChar
-          });
-
           return {
             type: Token.StringLiteral,
             value: value,
@@ -1265,8 +1280,14 @@ Lexer.prototype = {
           allowNewLine = parsed.allowNewLine;
         }
 
-        value += char;
-        this.skip(jump);
+        // If char is the empty string, end of the line has been reached. In
+        // this case, `this.char` should not be incremented so that warnings
+        // and errors reported in the subsequent loop iteration have the
+        // correct character column offset.
+        if (char !== "") {
+          value += char;
+          this.skip(jump);
+        }
       }
     }
 
@@ -1481,7 +1502,6 @@ Lexer.prototype = {
     return {
       type: Token.RegExp,
       value: value,
-      flags: flags,
       isMalformed: malformed
     };
   },
@@ -1497,13 +1517,6 @@ Lexer.prototype = {
   },
 
   /*
-   * Scan for characters that get silently deleted by one or more browsers.
-   */
-  scanUnsafeChars: function() {
-    return this.input.search(reg.unsafeChars);
-  },
-
-  /*
    * Produce the next raw token or return 'null' if no tokens can be matched.
    * This method skips over all space characters.
    */
@@ -1511,7 +1524,7 @@ Lexer.prototype = {
     this.from = this.char;
 
     // Move to the next non-space character.
-    while (/\s/.test(this.peek())) {
+    while (reg.whitespace.test(this.peek())) {
       this.from += 1;
       this.skip();
     }
@@ -1533,7 +1546,7 @@ Lexer.prototype = {
       this.scanRegExp(checks) ||
       this.scanPunctuator() ||
       this.scanKeyword() ||
-      this.scanIdentifier() ||
+      this.scanIdentifier(checks) ||
       this.scanNumericLiteral(checks);
 
     if (match) {
@@ -1595,16 +1608,6 @@ Lexer.prototype = {
     }
 
     this.input = this.input.replace(/\t/g, state.tab);
-    char = this.scanUnsafeChars();
-
-    if (char >= 0) {
-      this.triggerAsync(
-        "warning",
-        { code: "W100", line: this.line, character: char },
-        checks,
-        function() { return true; }
-      );
-    }
 
     // If there is a limit on line length, warn when lines get too
     // long.
@@ -1641,6 +1644,9 @@ Lexer.prototype = {
 
 
     function isReserved(token, isProperty) {
+      // At present all current identifiers have reserved set.
+      // Preserving check anyway, for future-proofing.
+      /* istanbul ignore if */
       if (!token.reserved) {
         return false;
       }
@@ -1684,6 +1690,7 @@ Lexer.prototype = {
         case "~":
         case "#":
         case "]":
+        case "}":
         case "++":
         case "--":
           this.prereg = false;
@@ -1697,13 +1704,12 @@ Lexer.prototype = {
 
       if (type === "(identifier)") {
         if (value === "return" || value === "case" || value === "yield" ||
-            value === "typeof" || value === "instanceof") {
+            value === "typeof" || value === "instanceof" || value === "void") {
           this.prereg = true;
         }
 
         if (_.has(state.syntax, value)) {
-          obj = Object.create(state.syntax[value] || state.syntax["(error)"]);
-
+          obj = Object.create(state.syntax[value]);
           // If this can't be a reserved keyword, reset the object.
           if (!isReserved(obj, isProperty && type === "(identifier)")) {
             obj = null;
@@ -1853,8 +1859,6 @@ Lexer.prototype = {
 
         /* falls through */
       case Token.Keyword:
-      case Token.NullLiteral:
-      case Token.BooleanLiteral:
         return create("(identifier)", token.value, state.tokens.curr.id === ".", token);
 
       case Token.NumericLiteral:
@@ -1890,7 +1894,7 @@ Lexer.prototype = {
           from: this.from,
           value: token.value,
           base: token.base,
-          isMalformed: token.malformed
+          isMalformed: token.isMalformed
         });
 
         return create("(number)", token.value);
@@ -1899,8 +1903,6 @@ Lexer.prototype = {
         return create("(regexp)", token.value);
 
       case Token.Comment:
-        state.tokens.curr.comment = true;
-
         if (token.isSpecial) {
           return {
             id: '(comment)',
@@ -1914,9 +1916,6 @@ Lexer.prototype = {
           };
         }
 
-        break;
-
-      case "":
         break;
 
       default:
