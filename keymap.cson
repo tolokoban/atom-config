@@ -36,3 +36,6 @@
   'alt-+': 'editor:unfold-all'
   'ctrl--': 'editor:fold-current-row'
   'ctrl-+': 'editor:unfold-current-row'
+'.platform-win32, .platform-linux':
+  'alt-$': 'tree-view:toggle-focus'
+  'ctrl-$': 'tree-view:toggle'
