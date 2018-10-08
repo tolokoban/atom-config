@@ -3,5 +3,5 @@ compile-cache/
 packages/
 recovery/
 storage/
-.apm
-.git
+.apm/
+.git/
