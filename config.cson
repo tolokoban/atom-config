@@ -1,4 +1,16 @@
 "*":
+  "atom-beautify":
+    js:
+      beautify_on_save: true
+      brace_style: "collapse-preserve-inline"
+      keep_array_indentation: true
+      keep_function_indentation: true
+      object_curly_spacing: true
+      space_after_anon_function: true
+      space_in_paren: true
+      wrap_line_length: 120
+  "atom-easy-jsdoc":
+    useReturns: true
   core:
     telemetryConsent: "no"
   editor:
@@ -8,3 +20,5 @@
     tabLength: 4
   "exception-reporting":
     userId: "7b9e1ff2-46dd-450a-8dc6-d8801895d8d7"
+  welcome:
+    showOnStartup: false
