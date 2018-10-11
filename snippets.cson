@@ -234,25 +234,6 @@ $1.prototype.$2 = function($3) {
     body: """return new Promise(function (resolve, reject) {
     $0
 });"""
-<<<<<<< HEAD
-  "var Modal = require('wdg.modal')":
-    prefix: "reqmod"
-    body: "var Modal = require('wdg.modal');$0"
-  "var Text = require('wdg.text')":
-    prefix: "reqtxt"
-    body: "var Text = require('wdg.text');$0"
-  "Tap -> Tap(function(){})":
-    prefix: "tap"
-    body: """Tap(
-  function() {
-    $0
-  }
-)"""
-  "typ -> typeof {} === '{}'":
-    prefix: "typ"
-    body: """typeof $1 ${2:=}== '${3:undefined}'$0"""
-=======
->>>>>>> 287a97e1696350772e49011fbda2ffda0faf811e
   "try {} catch(e) {}":
     prefix: "try"
     body: """try {
