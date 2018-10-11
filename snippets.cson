@@ -229,14 +229,12 @@ $1.prototype.$2 = function($3) {
 	    return this;
 	}$0
 """
-  "var Button = require('wdg.button')":
-    prefix: "reqbtn"
-    body: "var Button = require('wdg.button');$0"
   "return new Promise(...)":
     prefix: "retpro"
     body: """return new Promise(function (resolve, reject) {
     $0
 });"""
+<<<<<<< HEAD
   "var Modal = require('wdg.modal')":
     prefix: "reqmod"
     body: "var Modal = require('wdg.modal');$0"
@@ -253,6 +251,8 @@ $1.prototype.$2 = function($3) {
   "typ -> typeof {} === '{}'":
     prefix: "typ"
     body: """typeof $1 ${2:=}== '${3:undefined}'$0"""
+=======
+>>>>>>> 287a97e1696350772e49011fbda2ffda0faf811e
   "try {} catch(e) {}":
     prefix: "try"
     body: """try {
@@ -265,7 +265,10 @@ catch (e) {
 """
   "if( toto === undefined ) toto = \"blabla\";":
     prefix: "undef"
-    body: 'if( typeof $1 === "undefined" ) $1 = $2;$0'
+    body: '$1 = typeof $1 !== "undefined" ? $1 : $2'
+  "Optional function argument":
+    prefix: "opt"
+    body: '$1 = typeof _$1 !== "undefined" ? _$1 : $2'
   "use":
     prefix: "use"
     body: """"use strict";
