@@ -5,3 +5,5 @@ recovery/
 storage/
 .apm/
 .git/
+.node-gyp/
+

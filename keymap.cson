@@ -20,7 +20,7 @@
   'ctrl--': 'editor:fold-current-row'
   'ctrl-+': 'editor:unfold-current-row'
   'f12 j': 'macros:tfwSwitchToJS'
-  'f12 x': 'macros:tfwSwitchToXJS'
+  'f12 x': 'toloframework:switch-to-xjs'
   'f12 c': 'macros:tfwSwitchToCSS'
   'f12 i': 'macros:tfwSwitchToINI'
   'f12 d': 'macros:tfwSwitchToDEP'
