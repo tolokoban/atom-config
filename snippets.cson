@@ -65,9 +65,6 @@ exports.compile = function(root, libs) {
 $0
 };
 """
-  "typ -> typeof {} === '{}'":
-    prefix: "typ"
-    body: """typeof $1 === '${2:undefined}'$0"""
   "console.error();":
     prefix: "err"
     body: """console.error(${1:err});$0"""
