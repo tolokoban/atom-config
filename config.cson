@@ -8,6 +8,7 @@
   core:
     telemetryConsent: "no"
   editor:
+    fontSize: 13
     preferredLineLength: 120
     scrollPastEnd: true
     showIndentGuide: true
