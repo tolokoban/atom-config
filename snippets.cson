@@ -25,6 +25,17 @@
     prefix: "wdg"
     body: """<x-widget name="$1">$0</$1>}"""
 ".source.js":
+  "CODE_BEHIND":
+    prefix: "cb"
+    body: """/* exported CODE_BEHIND */
+const CODE_BEHIND = { ${1:init} };
+
+/**
+ * @this ${2:ViewXJS}
+function $1() {
+    $0
+}
+"""
   "Trace var in console":
     prefix: "tr"
     body: 'console.info("$1=", $1)'
@@ -70,7 +81,7 @@ $0
     body: """console.error(${1:err});$0"""
   "describe('should...', function() {...})":
     prefix: "des"
-    body: """describe('${1:should }$2', function($3) {
+    body: """describe('$1', ($2) => {
     $0
 });"""
   "ext":
@@ -109,7 +120,7 @@ var $1 = function(opts) {
 module.exports = $1;"""
   "fora -> for (i=0 ; i<arguments.length ; ...":
     prefix: "fora"
-    body: """Array.slice.call(arguments).forEach(function(arg, idx) {
+    body: """Array.slice.call(arguments).forEach((arg, idx) => {
 $0
 });"""
   "export":
@@ -147,7 +158,12 @@ ${3:val} = $2[$1];$0
 """
   "function( ... ) {}":
     prefix: "fun"
-    body: """function$1($2) {
+    body: """
+/**
+ * @param {${3:any}} $2
+ * @returns {${4:undefined}}
+ */
+function$1($2) {
     $0
 }"""
   "defineProperty read only":
