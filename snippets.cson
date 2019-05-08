@@ -48,6 +48,23 @@
         console.error(ex);
     }
 }"""
+  "New React Component":
+    prefix: "tsx"
+    body: """import * as React from "react"
+import "./${1:component}.css"
+
+interface I${2:Component}Props {}
+interface I$2State {}
+
+export default class $2 extends react.Component<I$2Props, I$2State> {
+    render() {
+        return (
+            <div className="presentation-$1">
+            $0</div>
+        );
+    }
+}
+    """
 ".source.js":
   "CODE_BEHIND":
     prefix: "cb"
