@@ -56,7 +56,7 @@ import "./${1:component}.css"
 interface I${2:Component}Props {}
 interface I$2State {}
 
-export default class $2 extends react.Component<I$2Props, I$2State> {
+export default class $2 extends React.Component<I$2Props, I$2State> {
     render() {
         return (
             <div className="presentation-$1">
