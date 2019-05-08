@@ -6,4 +6,5 @@ storage/
 .apm/
 .git/
 .node-gyp/
+.atom*
 

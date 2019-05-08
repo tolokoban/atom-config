@@ -2,7 +2,7 @@
 
 const Path = require( "path" );
 
-[ 'js', 'xjs', 'ini', 'css', 'vert', 'frag', 'dep' ].forEach( function ( extension ) {
+[ 'js', 'xjs', 'ini', 'css', 'vert', 'frag', 'dep', 'yaml', 'tsx' ].forEach( function ( extension ) {
     atom.commands.add(
         'atom-text-editor',
         'toloframework:switch-to-' + extension,
@@ -15,20 +15,14 @@ atom.commands.add(
     function () {
         const filename = getCurrentEditorPath();
         const parsing = Path.parse( filename );
-        const dst = Path.join(
-            parsing.dir,
-            "..",
-            "..",
-            "spec",
-            replaceExtension( parsing.base, ".spec.js" )
-        );
-        atom.workspace.open( dst );
+        switchTo( "spec" + parsing.ext );
     } );
 
 
 function switchTo( extension ) {
     const filename = getCurrentEditorPath();
     if ( !filename ) return;
+    atom.workspace.activateNextPane();
     atom.workspace.open( replaceExtension( filename, extension ) );
 }
 

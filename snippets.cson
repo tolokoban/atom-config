@@ -24,6 +24,30 @@
   "<x-widget>...":
     prefix: "wdg"
     body: """<x-widget name="$1">$0</$1>}"""
+".source.tsx":
+  "this.foo = this.foo.bind( this );":
+    prefix: "bind"
+    body: "this.${1:handleChange} = this.$1.bind( this );$0"
+  "Trace var in console":
+    prefix: "tr"
+    body: 'console.info("$1=", $1);'
+  "Jest it":
+    prefix: "it"
+    body: """it(`Should $1`, () => {
+        $0
+});"""
+  "new handler method":
+      prefix: "handle"
+      body: """handle$1($2$0) {
+    const handler = this.props.on$1;
+    if (typeof handler !== 'function') return;
+    try {
+        handler($2);
+    } catch(ex) {
+        console.error("Error in handle$1($2): ", $2);
+        console.error(ex);
+    }
+}"""
 ".source.js":
   "CODE_BEHIND":
     prefix: "cb"

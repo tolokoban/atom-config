@@ -26,6 +26,8 @@
   'f12 d': 'toloframework:switch-to-dep'
   'f12 v': 'toloframework:switch-to-vert'
   'f12 f': 'toloframework:switch-to-frag'
+  'f12 y': 'toloframework:switch-to-yaml'
+  'f12 t': 'toloframework:switch-to-tsx'
   'f12 s': 'toloframework:switch-to-spec'
   'ctrl-shift-J': 'jsdoc:block'
 
