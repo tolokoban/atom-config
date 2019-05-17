@@ -1,88 +1,17 @@
 "*":
   "atom-beautify":
-    css:
-      align_assignments: true
-      beautify_on_save: true
-      default_beautifier: "Pretty Diff"
-      indent_size: 2
-      newline_between_rules: false
-      no_lead_zero: true
-    executables:
-      php:
-        path: "E:\\softs\\wamp\\bin\\php\\php7.0.10\\php"
-    js:
-      brace_style: "collapse-preserve-inline"
-      jslint_happy: true
-      object_curly_spacing: true
-      space_in_paren: true
-    jsx:
-      beautify_on_save: true
-    php: {}
-    tsx:
-      beautify_on_save: true
+    general:
+      _analyticsUserId: "4cc82432-dda5-416c-8bed-92143f13cccc"
     typescript:
-      beautify_on_save: false
-  "atom-easy-jsdoc":
-    beta: true
-    useReturns: true
-  "atom-typescript":
-    jsFileExtensions: [
-      ".js"
-      ".jst"
-    ]
-    jsSyntaxScopes: [
-      "source.js"
-      "javascript"
-    ]
-    preferBuiltinSigHelp: true
-    preferBuiltinTooltips: true
-    showSemanticView: true
-    tsSyntaxScopes: [
-      "source.ts"
-      "typescript"
-    ]
+      indent_size: 4
   core:
-    customFileTypes:
-      typescriptreact: [
-        "tsx"
-      ]
-    telemetryConsent: "no"
+    telemetryConsent: "limited"
     uriHandlerRegistration: "always"
-  docblockr:
-    return_tag: "@returns"
-    spacer_between_sections: "after_description"
   editor:
-    preferredLineLength: 120
-    scrollPastEnd: true
-    showIndentGuide: true
     tabLength: 4
   "exception-reporting":
-    userId: "7b9e1ff2-46dd-450a-8dc6-d8801895d8d7"
-  "fuzzy-finder":
-    ignoredNames: [
-      "tmp/"
-      "www/"
-      "spec/mod/"
-    ]
-    prefillFromSelection: true
-  linter:
-    lintOnChangeInterval: 1500
-  "linter-php":
-    executablePath: "E:\\softs\\wamp\\bin\\php\\php7.0.10\\php"
-    ignorePhpIni: true
-  "linter-ui-default":
-    alwaysTakeMinimumSpace: true
-    decorateOnTreeView: "Files and Directories"
-    panelHeight: 123
-    showPanel: true
-    showProviderName: true
-    statusBarRepresents: "Current File"
-  "tree-view":
-    alwaysOpenExisting: true
-    hideVcsIgnoredFiles: true
-    squashDirectoryNames: true
-  welcome:
-    showOnStartup: false
-".jsdoc.source":
-  editor:
-    tabType: "soft"
+    userId: "e439362c-305a-418b-a10a-acc326aa647c"
+  jumpy:
+    fontSize: 0.8
+    highContrast: true
+    matchPattern: "(function |class |export |[a-zA-Z$_][a-zA-Z$_0-9]+\\()"

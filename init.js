@@ -18,6 +18,29 @@ atom.commands.add(
         switchTo( "spec" + parsing.ext );
     } );
 
+atom.commands.add(
+    'atom-text-editor',
+    'toloframework:switch-to-js',
+    function () {
+        const filename = getCurrentEditorPath();
+
+        const parsing = Path.parse( filename );
+        switchTo( "spec" + parsing.ext );
+    } );
+
+atom.commands.add(
+    "atom-text-editor",
+    "toloframework:beautify",
+    function () {
+        const filename = getCurrentEditorPath();
+        const parsing = Path.parse( filename );
+        alert( "Extension: " + parsing.ext );
+        atom.commands.dispatch(
+            "atom-text-editor",
+            "atom-beautify:beautify-editor"
+        );
+    }
+)
 
 function switchTo( extension ) {
     const filename = getCurrentEditorPath();

@@ -24,7 +24,46 @@
     "<x-widget>...":
         prefix: "wdg"
         body: """<x-widget name="$1">$0</$1>}"""
-".source.tsx":
+".source.ts":
+    "Create React Component":
+        prefix: "react-component"
+        body: """import React from "react"
+
+import "./$2.css"
+
+interface I$1Props {
+    $0
+}
+
+export default class $1 extends React.Component<I$1Props, {}> {
+    constructor( props: I$1Props ) {
+        super( props );
+    }
+
+    render() {
+        return (<div className="$1">
+        </div>)
+    }
+}
+"""
+    "Create Redux Container":
+        prefix: "redux-container"
+        body: """import { connect } from 'react-redux'
+import { ${2:IAppState} } from "${3:..}/types"
+import $1View from "./$1"
+
+function mapStateToProps(state: ${2:IAppState}) {
+    return { ...state };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        // onClick: ...
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)($1View);
+"""
     "this.foo = this.foo.bind( this );":
         prefix: "bind"
         body: "this.${1:handleChange} = this.$1.bind( this );$0"
