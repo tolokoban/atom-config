@@ -1,22 +1,12 @@
 "*":
   "atom-beautify":
-    executables:
-      php:
-        path: "/usr/bin/php"
     js:
       beautify_on_save: true
       brace_style: "collapse-preserve-inline"
       keep_array_indentation: true
       keep_function_indentation: true
-    tsx:
-      beautify_on_save: true
-    typescript: {}
-  "atom-fuzzy-grep":
-    preserveLastSearch: true
   core:
     telemetryConsent: "no"
-  docblockr:
-    spacer_between_sections: "true"
   editor:
     fontSize: 13
     preferredLineLength: 120

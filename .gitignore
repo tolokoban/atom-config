@@ -1,9 +1,11 @@
 blob-store/
 compile-cache/
+dev/
 packages/
 recovery/
 storage/
 .apm/
 .git/
 .node-gyp/
+.atom*
 

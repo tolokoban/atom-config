@@ -21,6 +21,49 @@
 # http://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson
 
 ".source.html":
+<<<<<<< HEAD
+  "<x-widget>...":
+    prefix: "wdg"
+    body: """<x-widget name="$1">$0</$1>}"""
+".source.ts":
+  "Trace var in console":
+    prefix: "tt"
+    body: 'console.info("$1=", $1)'
+".source.tsx":
+  "Trace var in console":
+    prefix: "tt"
+    body: 'console.info("$1=", $1)'
+".source.js":
+  "Trace var in console":
+    prefix: "tr"
+    body: 'console.info("$1=", $1)'
+  "-- -> /******************":
+    prefix: "--"
+    body: """/**
+ * @module `(file-name-sans-extension (buffer-name))`
+ *
+ * @description
+ * $1
+ *
+ * @example
+ * var mod = require('`(file-name-sans-extension (buffer-name))`');
+ */
+$0"""
+  'var that = this;':
+    'prefix': 'that'
+    'body': 'var that = this;'
+  "arr -> Array.isArray($0)":
+    prefix: "arr"
+    body: """Array.isArray($0)"""
+  "var $1 = $_parseArg(arg_$1);":
+    prefix: "arg"
+    body: """var ${1:args} = Array.prototype.slice.call( arguments );$0"""
+  "New Toloframework component":
+    prefix: "com"
+    body: """/**
+ * Component ${1:x-my-component}
+ */
+=======
     "<x-widget>...":
         prefix: "wdg"
         body: """<x-widget name="$1">$0</$1>}"""
@@ -28,6 +71,7 @@
     "Create React Component":
         prefix: "react-component"
         body: """import React from "react"
+>>>>>>> 694619bdea144f728edc71934c642931de4bc524
 
 import "./$2.css"
 
