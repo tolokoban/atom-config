@@ -24,6 +24,14 @@
   "<x-widget>...":
     prefix: "wdg"
     body: """<x-widget name="$1">$0</$1>}"""
+".source.ts":
+  "Trace var in console":
+    prefix: "tt"
+    body: 'console.info("$1=", $1)'
+".source.tsx":
+  "Trace var in console":
+    prefix: "tt"
+    body: 'console.info("$1=", $1)'
 ".source.js":
   "Trace var in console":
     prefix: "tr"
