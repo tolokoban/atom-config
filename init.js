@@ -46,6 +46,14 @@ function switchTo( extension ) {
     const filename = getCurrentEditorPath();
     if ( !filename ) return;
     atom.workspace.activateNextPane();
+    if( Path.basename( filename ) === "index.tsx") {
+        const target = Path.join(
+            Path.dirname( filename ),
+            Path.basename( Path.dirname( filename ) ) + "." + extension
+        );
+        atom.workspace.open( target );
+        return;
+    }
     atom.workspace.open( replaceExtension( filename, extension ) );
 }
 

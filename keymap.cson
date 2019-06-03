@@ -30,3 +30,19 @@
 # If you are unfamiliar with CSON, you can read more about it in the
 # Atom Flight Manual:
 # http://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson
+'atom-text-editor':
+  'alt--': 'editor:fold-all'
+  'alt-+': 'editor:unfold-all'
+  'ctrl--': 'editor:fold-current-row'
+  'ctrl-+': 'editor:unfold-current-row'
+  'f12 j': 'toloframework:switch-to-js'
+  'f12 x': 'toloframework:switch-to-xjs'
+  'f12 c': 'toloframework:switch-to-css'
+  'f12 i': 'toloframework:switch-to-ini'
+  'f12 d': 'toloframework:switch-to-dep'
+  'f12 v': 'toloframework:switch-to-vert'
+  'f12 f': 'toloframework:switch-to-frag'
+  'f12 s': 'toloframework:switch-to-spec'
+  'f12 t': 'toloframework:switch-to-tsx'
+  'f12 y': 'toloframework:switch-to-yaml'
+  'ctrl-shift-J': 'jsdoc:block'

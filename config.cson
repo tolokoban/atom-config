@@ -8,6 +8,7 @@
     telemetryConsent: "limited"
     uriHandlerRegistration: "always"
   editor:
+    showIndentGuide: true
     tabLength: 4
   "exception-reporting":
     userId: "e439362c-305a-418b-a10a-acc326aa647c"
@@ -15,3 +16,11 @@
     fontSize: 0.8
     highContrast: true
     matchPattern: "(function |class |export |[a-zA-Z$_][a-zA-Z$_0-9]+\\()"
+  pigments:
+    autocompleteSuggestionsFromValue: true
+    extendAutocompleteToColorValue: true
+    extendAutocompleteToVariables: true
+  "seti-icons": {}
+".css.source":
+  editor:
+    showIndentGuide: true
