@@ -16,11 +16,20 @@
     fontSize: 0.8
     highContrast: true
     matchPattern: "(function |class |export |[a-zA-Z$_][a-zA-Z$_0-9]+\\()"
+  "linter-eslint":
+    disabling:
+      disableWhenNoEslintConfig: false
   pigments:
     autocompleteSuggestionsFromValue: true
     extendAutocompleteToColorValue: true
     extendAutocompleteToVariables: true
   "seti-icons": {}
+  "tree-view":
+    alwaysOpenExisting: true
+    autoReveal: true
+    hideIgnoredNames: true
+    hideVcsIgnoredFiles: true
+    squashDirectoryNames: true
 ".css.source":
   editor:
     showIndentGuide: true
