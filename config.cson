@@ -1,12 +1,12 @@
 "*":
   "atom-beautify":
-    js:
-      beautify_on_save: true
-      brace_style: "collapse-preserve-inline"
-      keep_array_indentation: true
-      keep_function_indentation: true
+    general:
+      _analyticsUserId: "4cc82432-dda5-416c-8bed-92143f13cccc"
+    typescript:
+      indent_size: 4
   core:
-    telemetryConsent: "no"
+    telemetryConsent: "limited"
+    uriHandlerRegistration: "always"
   editor:
     fontSize: 13
     preferredLineLength: 120
@@ -30,7 +30,19 @@
     statusBarRepresents: "Current File"
   "tree-view":
     alwaysOpenExisting: true
+    autoReveal: true
+    hideIgnoredNames: true
     hideVcsIgnoredFiles: true
     squashDirectoryNames: true
   welcome:
     showOnStartup: false
+  pigments:
+    autocompleteSuggestionsFromValue: true
+    extendAutocompleteToColorValue: true
+    extendAutocompleteToVariables: true
+  "seti-icons": {}
+  jumpy:
+    fontSize: 0.8
+    highContrast: true
+    matchPattern: "(function |class |export |[a-zA-Z$_][a-zA-Z$_0-9]+\\()"
+
