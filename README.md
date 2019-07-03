@@ -12,7 +12,7 @@ To make my atom portable, I set the environment variable `ATOM_HOME` to this fol
 * __find-selection__: Ctrl-F3 to find the next occurence of the text in the current selection. Ctrl-Shif-F3 for backward search.
 * __jumpy__: Shift-Enter to move around to next label (of two letters).
 * __docblockr__: Automatic JSDoc insertion before functions.
-
+* __seti-icons__: More icons for the tree view.
 
 
 * __linter-eslint__: EcmaScript Linter.
